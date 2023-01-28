@@ -15,7 +15,7 @@ import dagger.hilt.components.SingletonComponent
 class DataStoreModule {
 
     @Provides
-    fun provideDatStore(@ApplicationContext context: Context): DataStore<Preferences>{
+    fun provideDatStore(@ApplicationContext context: Context): DataStore<Preferences> {
         return context.dataStore
     }
 }

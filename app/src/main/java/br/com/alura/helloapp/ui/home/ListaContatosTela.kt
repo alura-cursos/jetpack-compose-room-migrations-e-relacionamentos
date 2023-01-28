@@ -8,12 +8,11 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ExitToApp
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,24 +27,27 @@ import br.com.alura.helloapp.ui.theme.HelloAppTheme
 fun ListaContatosTela(
     state: ListaContatosUiState,
     modifier: Modifier = Modifier,
-    onClickDesloga: () -> Unit = {},
+    onClickListaUsuarios: () -> Unit = {},
     onClickAbreDetalhes: (Long) -> Unit = {},
     onClickAbreCadastro: () -> Unit = {},
+    onClickBuscaContatos: () -> Unit = {}
 ) {
-    Scaffold(
-        topBar = { AppBarListaContatos(onClickDesloga = onClickDesloga) },
-        floatingActionButton = {
-            FloatingActionButton(
-                backgroundColor = MaterialTheme.colors.primary,
-                onClick = { onClickAbreCadastro() },
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = stringResource(R.string.adicionar_novo_contato)
-                )
-            }
-        }) { paddingValues ->
-
+    Scaffold(topBar = {
+        AppBarListaContatos(
+            onClickListaUsuarios = onClickListaUsuarios,
+            onClickBuscaContatos = onClickBuscaContatos
+        )
+    }, floatingActionButton = {
+        FloatingActionButton(
+            backgroundColor = MaterialTheme.colors.primary,
+            onClick = { onClickAbreCadastro() },
+        ) {
+            Icon(
+                imageVector = Icons.Default.Add,
+                contentDescription = stringResource(R.string.adicionar_novo_contato)
+            )
+        }
+    }) { paddingValues ->
         LazyColumn(modifier.padding(paddingValues)) {
             items(state.contatos) { contato ->
                 ContatoItem(contato) { idContato ->
@@ -57,18 +59,28 @@ fun ListaContatosTela(
 }
 
 @Composable
-fun AppBarListaContatos(onClickDesloga: () -> Unit) {
+fun AppBarListaContatos(onClickListaUsuarios: () -> Unit, onClickBuscaContatos: () -> Unit) {
     TopAppBar(
         title = { Text(text = stringResource(id = R.string.nome_do_app)) },
         actions = {
-            IconButton(
-                onClick = onClickDesloga
-            ) {
-                Icon(
-                    imageVector = Icons.Default.ExitToApp,
-                    tint = Color.White,
-                    contentDescription = stringResource(R.string.deslogar)
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                IconButton(onClick = onClickBuscaContatos) {
+                    Icon(
+                        Icons.Default.Search, contentDescription = stringResource(R.string.buscar)
+                    )
+                }
+
+                Spacer(modifier = Modifier.size(8.dp))
+
+                AsyncImagePerfil(
+                    modifier = Modifier
+                        .size(32.dp)
+                        .clip(CircleShape)
+                        .clickable {
+                            onClickListaUsuarios()
+                        },
                 )
+                Spacer(modifier = Modifier.size(8.dp))
             }
         }
     )
@@ -76,8 +88,7 @@ fun AppBarListaContatos(onClickDesloga: () -> Unit) {
 
 @Composable
 fun ContatoItem(
-    contato: Contato,
-    onClick: (Long) -> Unit
+    contato: Contato, onClick: (Long) -> Unit
 ) {
     Card(
         Modifier.clickable { onClick(contato.id) },
@@ -87,8 +98,7 @@ fun ContatoItem(
             Modifier.padding(16.dp),
         ) {
             AsyncImagePerfil(
-                urlImagem = contato.fotoPerfil,
-                modifier = Modifier
+                urlImagem = contato.fotoPerfil, modifier = Modifier
                     .size(48.dp)
                     .clip(CircleShape)
             )
@@ -103,8 +113,7 @@ fun ContatoItem(
                     fontWeight = FontWeight.Bold,
                 )
                 Text(
-                    modifier = Modifier.fillMaxWidth(),
-                    text = contato.sobrenome
+                    modifier = Modifier.fillMaxWidth(), text = contato.sobrenome
                 )
             }
         }

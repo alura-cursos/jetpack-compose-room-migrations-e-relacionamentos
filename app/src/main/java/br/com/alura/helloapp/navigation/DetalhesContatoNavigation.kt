@@ -6,19 +6,17 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
-import br.com.alura.helloapp.DetalhesContato
 import br.com.alura.helloapp.R
 import br.com.alura.helloapp.extensions.mostraMensagem
 import br.com.alura.helloapp.ui.details.DetalhesContatoTela
 import br.com.alura.helloapp.ui.details.DetalhesContatoViewlModel
-import br.com.alura.helloapp.ui.navegaParaFormularioContato
 import br.com.alura.helloapp.util.ID_CONTATO
 import kotlinx.coroutines.launch
 
 fun NavGraphBuilder.detalhesContatoGraph(
-    navController: NavHostController
+    onVolta: () -> Unit,
+    onNavegaParaDialgoUsuarios: (Long) -> Unit,
 ) {
     composable(
         route = DetalhesContato.rotaComArgumentos,
@@ -36,15 +34,17 @@ fun NavGraphBuilder.detalhesContatoGraph(
 
             DetalhesContatoTela(
                 state = state,
-                onClickVoltar = { navController.popBackStack() },
+                onClickVolta = onVolta,
                 onApagaContato = {
                     scope.launch {
                         viewModel.removeContato()
                         context.mostraMensagem(context.getString(R.string.contato_apagado))
                     }
-                    navController.popBackStack()
+                    onVolta()
                 },
-                onClickEditar = { navController.navegaParaFormularioContato(idContato) })
+                onClickEdita = {
+                    onNavegaParaDialgoUsuarios(idContato)
+                })
         }
     }
 }

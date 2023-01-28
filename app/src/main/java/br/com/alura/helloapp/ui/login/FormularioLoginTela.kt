@@ -25,12 +25,11 @@ import androidx.compose.ui.unit.dp
 import br.com.alura.helloapp.R
 import br.com.alura.helloapp.ui.theme.HelloAppTheme
 
-
 @Composable
 fun FormularioLoginTela(
     state: FormularioLoginUiState,
     modifier: Modifier = Modifier,
-    onSalvar: () -> Unit = {}
+    onSalva: () -> Unit = {}
 ) {
     Column(Modifier.fillMaxSize()) {
         Column(
@@ -39,7 +38,6 @@ fun FormularioLoginTela(
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f)
-
         ) {
             Image(
                 painter = painterResource(id = R.drawable.helloapp_logo_blue),
@@ -60,6 +58,7 @@ fun FormularioLoginTela(
                 .weight(2f),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
+
             val focuAtual = LocalFocusManager.current
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
@@ -120,7 +119,7 @@ fun FormularioLoginTela(
                 modifier = Modifier
                     .fillMaxWidth()
                     .heightIn(56.dp),
-                onClick = onSalvar
+                onClick = onSalva
             ) {
                 Text(text = stringResource(R.string.criar))
             }

@@ -11,7 +11,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 
 @Composable
-fun AsyncImagePerfil(urlImagem: String, modifier: Modifier = Modifier) {
+fun AsyncImagePerfil(modifier: Modifier = Modifier, urlImagem: String? = null) {
     AsyncImage(
         modifier = modifier,
         contentScale = ContentScale.Crop,

@@ -2,24 +2,18 @@ package br.com.alura.helloapp.navigation
 
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import br.com.alura.helloapp.DestinosHelloApp
-import br.com.alura.helloapp.preferences.dataStore
 import br.com.alura.helloapp.ui.home.ListaContatosTela
 import br.com.alura.helloapp.ui.home.ListaContatosViewModel
-import br.com.alura.helloapp.ui.navegaParaDetalhes
-import br.com.alura.helloapp.ui.navegaParaFormularioContato
-import br.com.alura.helloapp.ui.navegaParaLoginDeslogado
-import kotlinx.coroutines.launch
 
 fun NavGraphBuilder.homeGraph(
-    navController: NavHostController
+    onNavegaParaDetalhes: (Long) -> Unit,
+    onNavegaParaFormularioContato: () -> Unit,
+    onNavegaParaDialgoUsuarios: (String) -> Unit,
+    onNavegaParaBuscaContatos: () -> Unit
 ) {
     navigation(
         startDestination = DestinosHelloApp.ListaContatos.rota,
@@ -29,25 +23,21 @@ fun NavGraphBuilder.homeGraph(
             val viewModel = hiltViewModel<ListaContatosViewModel>()
             val state by viewModel.uiState.collectAsState()
 
-            val dataStore = LocalContext.current.dataStore
-            val coroutineScope = rememberCoroutineScope()
-
             ListaContatosTela(
                 state = state,
                 onClickAbreDetalhes = { idContato ->
-                    navController.navegaParaDetalhes(idContato)
+                    onNavegaParaDetalhes(idContato)
                 },
                 onClickAbreCadastro = {
-                    navController.navegaParaFormularioContato()
+                    onNavegaParaFormularioContato()
                 },
-                onClickDesloga = {
-                    coroutineScope.launch {
-                        viewModel.desloga()
-                        navController.navegaParaLoginDeslogado()
-                    }
-                })
-
+                onClickListaUsuarios = {
+                    // state.usuarioAtual?.let { usuarioAtual ->
+                    onNavegaParaDialgoUsuarios("usuarioAtual")
+                    // }
+                },
+                onClickBuscaContatos = onNavegaParaBuscaContatos
+            )
         }
     }
 }
-

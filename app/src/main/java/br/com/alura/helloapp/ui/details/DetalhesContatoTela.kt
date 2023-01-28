@@ -21,16 +21,16 @@ import br.com.alura.helloapp.ui.theme.HelloAppTheme
 fun DetalhesContatoTela(
     state: DetalhesContatoUiState,
     modifier: Modifier = Modifier,
-    onClickVoltar: () -> Unit = {},
-    onClickEditar: () -> Unit = {},
+    onClickVolta: () -> Unit = {},
+    onClickEdita: () -> Unit = {},
     onApagaContato: () -> Unit = {},
 ) {
     Scaffold(
         topBar = {
             DetalhesContatoAppBar(
-                onClickVoltar = onClickVoltar,
+                onClickVoltar = onClickVolta,
                 onClickApagar = onApagaContato,
-                onClickEditar = onClickEditar
+                onClickEditar = onClickEdita
             )
         },
     ) { paddingValues ->

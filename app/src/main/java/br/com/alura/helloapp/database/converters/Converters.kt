@@ -4,7 +4,6 @@ import androidx.room.TypeConverter
 import java.util.*
 
 class Converters {
-
     @TypeConverter
     fun deDateParaLong(valor: Date?): Long?{
         return valor?.time

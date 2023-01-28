@@ -30,10 +30,9 @@ import br.com.alura.helloapp.ui.theme.HelloAppTheme
 fun LoginTela(
     state: LoginUiState,
     modifier: Modifier = Modifier,
-    onClickLogar: () -> Unit = {},
-    onClickCriarLogin: () -> Unit = {},
+    onClickLoga: () -> Unit = {},
+    onClickCriaLogin: () -> Unit = {},
 ) {
-
     Column(Modifier.fillMaxSize()) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -41,7 +40,6 @@ fun LoginTela(
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f)
-
         ) {
             Image(
                 painter = painterResource(id = R.drawable.helloapp_logo_blue),
@@ -56,13 +54,13 @@ fun LoginTela(
                 color = MaterialTheme.colors.primary
             )
         }
+
         Column(
             Modifier
                 .padding(horizontal = 16.dp)
                 .weight(2f),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-
             if (state.exibirErro) {
                 Text(
                     text = stringResource(R.string.usuario_ou_senha_incorreto),
@@ -111,11 +109,11 @@ fun LoginTela(
             Button(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .heightIn(56.dp), onClick = onClickLogar
+                    .heightIn(56.dp), onClick = onClickLoga
             ) {
                 Text(text = stringResource(R.string.entrar))
             }
-            TextButton(onClick = onClickCriarLogin, Modifier.fillMaxWidth()) {
+            TextButton(onClick = onClickCriaLogin, Modifier.fillMaxWidth()) {
                 Text(text = stringResource(R.string.criar_nova_conta))
             }
         }

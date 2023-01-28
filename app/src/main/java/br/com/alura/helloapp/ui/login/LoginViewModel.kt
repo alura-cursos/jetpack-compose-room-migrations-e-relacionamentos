@@ -2,7 +2,6 @@ package br.com.alura.helloapp.ui.login
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.lifecycle.ViewModel
 import br.com.alura.helloapp.preferences.PreferencesKey
@@ -15,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val dataStore: DataStore<Preferences>
+    private val dataStore: DataStore<Preferences>,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(LoginUiState())
@@ -35,17 +34,11 @@ class LoginViewModel @Inject constructor(
                         senha = it
                     )
                 },
-                onErro = {
-                    _uiState.value = _uiState.value.copy(
-                        exibirErro = it
-                    )
-                },
             )
         }
     }
 
     suspend fun tentaLogar() {
-
         dataStore.data.collect { preferences ->
             val senha = preferences[PreferencesKey.SENHA]
             val usuario = preferences[PreferencesKey.USUARIO]
@@ -54,13 +47,19 @@ class LoginViewModel @Inject constructor(
                 senha == _uiState.value.senha
             ) {
                 dataStore.edit {
-                    it[booleanPreferencesKey("logado")] = true
+                    it[PreferencesKey.LOGADO] = true
                 }
                 logaUsuario()
             } else {
-                _uiState.value.onErro(true)
+                exibeErro()
             }
         }
+    }
+
+    private fun exibeErro() {
+        _uiState.value = _uiState.value.copy(
+            exibirErro = true
+        )
     }
 
     private fun logaUsuario() {
@@ -69,5 +68,4 @@ class LoginViewModel @Inject constructor(
         )
     }
 }
-
 

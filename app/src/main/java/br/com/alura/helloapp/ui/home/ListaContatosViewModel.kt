@@ -20,13 +20,15 @@ class ListaContatosViewModel @Inject constructor(
     private val dataStore: DataStore<Preferences>
 ) : ViewModel() {
 
-
     private val _uiState = MutableStateFlow(ListaContatosUiState())
     val uiState: StateFlow<ListaContatosUiState>
         get() = _uiState.asStateFlow()
 
-
     init {
+        buscaContatos()
+    }
+
+    private fun buscaContatos() {
         viewModelScope.launch {
             val contatos = contatoDao.buscaTodos()
             contatos.collect { contatosBuscados ->
@@ -42,6 +44,4 @@ class ListaContatosViewModel @Inject constructor(
             preferences[booleanPreferencesKey("logado")] = false
         }
     }
-
-
 }

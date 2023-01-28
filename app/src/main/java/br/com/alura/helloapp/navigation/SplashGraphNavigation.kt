@@ -10,15 +10,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
-import br.com.alura.helloapp.DestinosHelloApp
-import br.com.alura.helloapp.ui.navegaLimpo
 import br.com.alura.helloapp.ui.splashscreen.AppState
 import br.com.alura.helloapp.ui.splashscreen.SplashScreenViewModel
 
 fun NavGraphBuilder.splashGraph(
-    navController: NavHostController
+    onNavegaParaLogin: () -> Unit,
+    onNavegaParaHome: () -> Unit
 ) {
     composable(
         route = DestinosHelloApp.SplashScreen.rota
@@ -32,12 +30,12 @@ fun NavGraphBuilder.splashGraph(
             }
             AppState.Deslogado -> {
                 LaunchedEffect(Unit) {
-                    navController.navegaLimpo(DestinosHelloApp.Login.rota)
+                    onNavegaParaLogin()
                 }
             }
             AppState.Logado -> {
                 LaunchedEffect(Unit) {
-                    navController.navegaLimpo(DestinosHelloApp.HomeGraph.rota)
+                    onNavegaParaHome()
                 }
             }
         }

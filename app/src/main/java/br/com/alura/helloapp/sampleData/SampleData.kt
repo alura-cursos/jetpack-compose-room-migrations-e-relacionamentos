@@ -3,7 +3,7 @@ package br.com.alura.helloapp.sampleData
 import br.com.alura.helloapp.data.Contato
 import java.util.*
 
-var contatosExemplo: List<Contato> = listOf(
+val contatosExemplo: List<Contato> = listOf(
     Contato(
         nome = "Ana",
         sobrenome = "Clara",

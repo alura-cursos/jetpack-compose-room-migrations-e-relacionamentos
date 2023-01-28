@@ -6,6 +6,7 @@ import android.widget.DatePicker
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.AlertDialog
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
@@ -107,10 +108,49 @@ fun CaixaDialogoImagem(
     )
 }
 
+@Composable
+fun CaixaDialogoConfirmacao(
+    titulo: String,
+    mensagem: String,
+    onClikConfirma: () -> Unit = {},
+    onClickCancela: () -> Unit = {}
+) {
+    AlertDialog(
+        title = {
+            Text(text = titulo)
+        },
+        text = {
+            Text(text = mensagem)
+        },
+        onDismissRequest = onClickCancela,
+        confirmButton = {
+            TextButton(onClikConfirma) {
+                Text(text = stringResource(id = R.string.confirmar))
+            }
+        },
+        dismissButton = {
+            TextButton(onClickCancela) {
+                Text(text = stringResource(id = R.string.cancelar))
+            }
+        }
+    )
+}
+
 @Preview
 @Composable
 fun CaixaDialogoImagemPreview() {
     HelloAppTheme {
         CaixaDialogoImagem("")
+    }
+}
+
+@Preview
+@Composable
+fun CaixaDialogoConfirmacaoPreview() {
+    HelloAppTheme {
+        CaixaDialogoConfirmacao(
+            titulo = stringResource(R.string.tem_certeza),
+            mensagem = stringResource(R.string.aviso_apagar_usuario),
+        )
     }
 }

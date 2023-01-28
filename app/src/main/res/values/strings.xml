@@ -25,7 +25,20 @@
     <string name="editar">Editar</string>
     <string name="deletar">Deletar</string>
     <string name="adicionar_novo_contato">Adicionar novo contato</string>
-    <string name="deslogar">Deslogar</string>
     <string name="usuario_ou_senha_incorreto">Usuário ou senha incorreto</string>
     <string name="logo_do_app">Logo do aplicativo</string>
+    <string name="usuario_ja_existe">Nome de usuário já existe, escolha outro</string>
+    <string name="pesquisar_contatos">Buscar contatos</string>
+    <string name="editar_usuario">Editar usuário</string>
+    <string name="excluir_usuario">Excluir usuário</string>
+    <string name="confirmar">Confirmar</string>
+    <string name="tem_certeza">Tem certeza?</string>
+    <string name="aviso_apagar_usuario">Ao apagar uma conta de usuário todos os contatos associdados a ela serão perdidos</string>
+    <string name="gerenciar_contas">Gerenciar contas</string>
+    <string name="adicionar_nova_conta">Adicionar nova conta</string>
+    <string name="adicionar">Adicionar</string>
+    <string name="descricao_icone_pessoa_configuracao">Pessoa com símbolo de configuração</string>
+    <string name="fechar">Fechar</string>
+    <string name="buscar">Buscar</string>
+    <string name="gerenciar_usuarios">Gerenciar usuários</string>
 </resources>

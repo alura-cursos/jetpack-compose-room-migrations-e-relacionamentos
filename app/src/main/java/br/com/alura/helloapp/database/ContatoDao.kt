@@ -2,7 +2,7 @@ package br.com.alura.helloapp.database
 
 import androidx.room.Dao
 import androidx.room.Insert
-import androidx.room.OnConflictStrategy.REPLACE
+import androidx.room.OnConflictStrategy.Companion.REPLACE
 import androidx.room.Query
 import br.com.alura.helloapp.data.Contato
 import kotlinx.coroutines.flow.Flow

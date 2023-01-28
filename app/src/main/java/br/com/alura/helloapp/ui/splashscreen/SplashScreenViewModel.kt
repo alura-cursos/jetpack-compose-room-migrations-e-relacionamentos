@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.random.Random
 
 @HiltViewModel
 class SplashScreenViewModel @Inject constructor(
@@ -29,7 +30,7 @@ class SplashScreenViewModel @Inject constructor(
     }
 
     private suspend fun definiDestinoInicial() {
-        delay(1000)
+        delay(Random.nextLong(300, 1000))
         dataStore.data.collect {
             val appState = if (it[LOGADO] == true) {
                 AppState.Logado
