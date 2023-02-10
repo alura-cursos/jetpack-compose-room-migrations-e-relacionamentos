@@ -56,7 +56,7 @@ class FormularioLoginViewModel @Inject constructor(
 
         usuarioDao.insere(
             Usuario(
-                nomeDeUsuario = _uiState.value.usuario,
+                idUsuario = _uiState.value.usuario,
                 senha = _uiState.value.senha,
                 nome = _uiState.value.nome
             )
