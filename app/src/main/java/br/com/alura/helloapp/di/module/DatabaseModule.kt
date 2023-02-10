@@ -25,7 +25,8 @@ class DatabaseModule {
             context,
             HelloAppDatabase::class.java,
             DATABASE_NAME
-        ).build()
+        ).fallbackToDestructiveMigration()
+            .build()
     }
 
     @Provides
@@ -34,7 +35,7 @@ class DatabaseModule {
     }
 
     @Provides
-    fun provideUsuarioDao(db: HelloAppDatabase): UsuarioDao{
+    fun provideUsuarioDao(db: HelloAppDatabase): UsuarioDao {
         return db.usuarioDao()
     }
 }

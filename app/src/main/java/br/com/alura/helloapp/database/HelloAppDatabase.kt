@@ -7,7 +7,7 @@ import br.com.alura.helloapp.data.Contato
 import br.com.alura.helloapp.data.Usuario
 import br.com.alura.helloapp.database.converters.*
 
-@Database(entities = [Contato::class, Usuario::class], version = 2)
+@Database(entities = [Contato::class, Usuario::class], version = 3)
 @TypeConverters(Converters::class)
 abstract class HelloAppDatabase : RoomDatabase() {
     abstract fun contatoDao(): ContatoDao
