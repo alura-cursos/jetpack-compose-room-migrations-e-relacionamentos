@@ -17,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class FormularioLoginViewModel @Inject constructor(
     private val dataStore: DataStore<Preferences>,
-    private val usuarioDao: UsuarioDao
+//    private val usuarioDao: UsuarioDao
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(FormularioLoginUiState())
@@ -53,12 +53,12 @@ class FormularioLoginViewModel @Inject constructor(
             preferences[PreferencesKey.SENHA] =
                 _uiState.value.senha
         }
-
-        usuarioDao.insere(
-            Usuario(
-                nomeDeUsuario = _uiState.value.usuario,
-                senha = _uiState.value.senha
-            )
-        )
+//
+//        usuarioDao.insere(
+//            Usuario(
+//                nomeDeUsuario = _uiState.value.usuario,
+//                senha = _uiState.value.senha
+//            )
+//        )
     }
 }
