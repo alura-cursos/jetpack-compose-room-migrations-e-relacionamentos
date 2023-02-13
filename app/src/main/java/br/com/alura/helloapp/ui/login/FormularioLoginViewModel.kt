@@ -47,13 +47,6 @@ class FormularioLoginViewModel @Inject constructor(
     }
 
     suspend fun salvaLogin() {
-        dataStore.edit { preferences ->
-            preferences[PreferencesKey.USUARIO] =
-                _uiState.value.usuario
-            preferences[PreferencesKey.SENHA] =
-                _uiState.value.senha
-        }
-
         usuarioDao.insere(
             Usuario(
                 idUsuario = _uiState.value.usuario,
