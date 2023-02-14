@@ -42,7 +42,7 @@ fun HelloAppNavHost(
             onNavegaParaFormularioContato = {
                 navController.navegaParaFormularioContato()
             },
-            onNavegaParaDialgoUsuarios = { idUsuario ->
+            onNavegaParaDialogoUsuarios = { idUsuario ->
                 navController.navegaParaDialgoUsuarios(idUsuario)
             },
             onNavegaParaBuscaContatos = {

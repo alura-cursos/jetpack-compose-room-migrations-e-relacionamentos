@@ -12,7 +12,7 @@ import br.com.alura.helloapp.ui.home.ListaContatosViewModel
 fun NavGraphBuilder.homeGraph(
     onNavegaParaDetalhes: (Long) -> Unit,
     onNavegaParaFormularioContato: () -> Unit,
-    onNavegaParaDialgoUsuarios: (String) -> Unit,
+    onNavegaParaDialogoUsuarios: (String) -> Unit,
     onNavegaParaBuscaContatos: () -> Unit
 ) {
     navigation(
@@ -32,9 +32,9 @@ fun NavGraphBuilder.homeGraph(
                     onNavegaParaFormularioContato()
                 },
                 onClickListaUsuarios = {
-                    // state.usuarioAtual?.let { usuarioAtual ->
-                    onNavegaParaDialgoUsuarios("usuarioAtual")
-                    // }
+                    state.usuarioAtual?.let { usuarioAtual ->
+                        onNavegaParaDialogoUsuarios(usuarioAtual)
+                    }
                 },
                 onClickBuscaContatos = onNavegaParaBuscaContatos
             )
