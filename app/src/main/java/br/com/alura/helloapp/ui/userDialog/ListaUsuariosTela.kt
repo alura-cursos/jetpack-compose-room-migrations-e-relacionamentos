@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Divider
@@ -26,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import br.com.alura.helloapp.R
+import br.com.alura.helloapp.data.Usuario
 import br.com.alura.helloapp.ui.components.AsyncImagePerfil
 import br.com.alura.helloapp.ui.theme.HelloAppTheme
 
@@ -123,6 +125,11 @@ fun CaixaDialogoContasUsuario(
                         .height(200.dp)
                         .padding(horizontal = 16.dp)
                 ) {
+                    items(state.outrasContas) {
+                        UsuarioItem(it) { idUsuarioClicado ->
+                            onClickListaContatosPorUsuario(idUsuarioClicado)
+                        }
+                    }
                     item {
                         ItensAcaoEmConta(
                             onClickGerenciarUsuarios = onClickGerenciaUsuarios,
@@ -197,12 +204,14 @@ private fun ItensAcaoEmConta(
 
 @Composable
 fun UsuarioItem(
+    usuario: Usuario,
     onClickPerfiUsuario: (nomeUsuario: String) -> Unit = {}
 ) {
     Row(
         Modifier
             .padding(vertical = 12.dp)
             .clickable {
+                onClickPerfiUsuario(usuario.idUsuario)
             }
     ) {
         AsyncImagePerfil(
@@ -217,13 +226,13 @@ fun UsuarioItem(
         ) {
             Text(
                 modifier = Modifier.fillMaxWidth(),
-                text = "Nome exemplo",
+                text = usuario.nome,
                 fontWeight = FontWeight.Bold,
                 fontSize = 14.sp
             )
             Text(
                 modifier = Modifier.fillMaxWidth(),
-                text = "Usuario exemplo",
+                text = usuario.idUsuario,
                 color = Color.Gray,
                 fontSize = 12.sp
             )
@@ -235,7 +244,7 @@ fun UsuarioItem(
 @Preview(showBackground = true)
 @Composable
 fun UsuarioItemPreview() {
-    UsuarioItem()
+    UsuarioItem(Usuario())
 }
 
 @Preview
