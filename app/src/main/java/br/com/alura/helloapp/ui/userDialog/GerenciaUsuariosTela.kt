@@ -3,6 +3,7 @@ package br.com.alura.helloapp.ui.userDialog
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -17,6 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import br.com.alura.helloapp.R
+import br.com.alura.helloapp.data.Usuario
 import br.com.alura.helloapp.ui.components.AsyncImagePerfil
 import br.com.alura.helloapp.ui.theme.HelloAppTheme
 
@@ -36,11 +38,11 @@ fun GerenciaUsuariosTela(
     ) { paddingValues ->
 
         LazyColumn(modifier.padding(paddingValues)) {
-//            items(state.usuarios) { usuario ->
-//                UsuarioGerenciaItem(usuario) { nomeUsuario ->
-//                    onClickAbreDetalhes(nomeUsuario)
-//                }
-//            }
+            items(state.usuarios) { usuario ->
+                UsuarioGerenciaItem(usuario) { nomeUsuario ->
+                    onClickAbreDetalhes(nomeUsuario)
+                }
+            }
         }
 
     }
@@ -69,10 +71,11 @@ fun AppBarGerenciaUsuarios(
 
 @Composable
 fun UsuarioGerenciaItem(
+    usuario: Usuario,
     onClick: (String) -> Unit
 ) {
     Card(
-        Modifier.clickable { },
+        Modifier.clickable { onClick(usuario.idUsuario) },
         backgroundColor = MaterialTheme.colors.background
     ) {
         Row(
@@ -90,12 +93,12 @@ fun UsuarioGerenciaItem(
             ) {
                 Text(
                     modifier = Modifier.fillMaxWidth(),
-                    text = "Nome exemplo",
+                    text = usuario.nome,
                     fontWeight = FontWeight.Bold,
                 )
                 Text(
                     modifier = Modifier.fillMaxWidth(),
-                    text = "Usuario exemplo"
+                    text = usuario.idUsuario
                 )
             }
         }
