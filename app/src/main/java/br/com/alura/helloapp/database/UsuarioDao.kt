@@ -1,8 +1,6 @@
 package br.com.alura.helloapp.database
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import br.com.alura.helloapp.data.Usuario
 import kotlinx.coroutines.flow.Flow
 
@@ -17,4 +15,10 @@ interface UsuarioDao {
 
     @Query("SELECT * FROM Usuario WHERE idUsuario = :usuario")
     fun buscaPorId(usuario: String) : Flow<Usuario?>
+
+    @Update
+    suspend fun atualiza(usuario: Usuario)
+
+    @Delete
+    suspend fun apaga(usuario: Usuario)
 }
