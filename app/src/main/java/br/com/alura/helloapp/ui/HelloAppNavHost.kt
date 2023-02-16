@@ -1,11 +1,15 @@
 package br.com.alura.helloapp.ui
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import br.com.alura.helloapp.navigation.*
+import br.com.alura.helloapp.ui.login.SessaoViewModel
 
 @Composable
 fun HelloAppNavHost(
@@ -18,7 +22,7 @@ fun HelloAppNavHost(
     ) {
         splashGraph(
             onNavegaParaLogin = {
-                navController.NavegaParaLoginElimpaBackStack()
+                navController.navegaParaLoginElimpaBackStack()
             },
             onNavegaParaHome = {
                 navController.navegaParaHome()
@@ -32,7 +36,7 @@ fun HelloAppNavHost(
                 navController.navegaParaFormlarioLogin()
             },
             onNavegaParaLogin = {
-                navController.NavegaParaLoginElimpaBackStack()
+                navController.navegaParaLoginElimpaBackStack()
             },
         )
         homeGraph(
@@ -88,6 +92,15 @@ fun HelloAppNavHost(
             },
         )
     }
+
+    val viewModel= hiltViewModel<SessaoViewModel>()
+    val state = viewModel.uiState.collectAsState()
+
+    LaunchedEffect(key1 = state.value.logado){
+        if(!state.value.logado){
+            navController.navegaParaLoginElimpaBackStack()
+        }
+    }
 }
 
 
@@ -111,7 +124,7 @@ fun NavHostController.navegaParaFormularioContato(idContato: Long = 0L) {
     navigate("${FormularioContato.rota}/$idContato")
 }
 
-fun NavHostController.NavegaParaLoginElimpaBackStack() {
+fun NavHostController.navegaParaLoginElimpaBackStack() {
     navegaLimpo(DestinosHelloApp.LoginGraph.rota)
 }
 
