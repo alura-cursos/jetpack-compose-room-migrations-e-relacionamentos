@@ -1,7 +1,9 @@
 package br.com.alura.helloapp.ui.login
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
@@ -12,8 +14,10 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -23,13 +27,17 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import br.com.alura.helloapp.R
+import br.com.alura.helloapp.ui.components.CaixaDialogoImagem
 import br.com.alura.helloapp.ui.theme.HelloAppTheme
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 
 @Composable
 fun FormularioLoginTela(
     state: FormularioLoginUiState,
     modifier: Modifier = Modifier,
-    onSalva: () -> Unit = {}
+    onSalva: () -> Unit = {},
+    onCarregaImagem: (String) -> Unit = {}
 ) {
     Column(Modifier.fillMaxSize()) {
         Column(
@@ -39,17 +47,23 @@ fun FormularioLoginTela(
                 .fillMaxWidth()
                 .weight(1f)
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.helloapp_logo_blue),
-                modifier = modifier
-                    .size(180.dp),
+            AsyncImage(
+                modifier = Modifier
+                    .size(180.dp)
+                    .clip(CircleShape)
+                    .clickable {
+                        state.onMostrarCaixaDialogoImagem(true)
+                    },
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(state.fotoPerfil).build(),
+                placeholder = painterResource(R.drawable.default_profile_picture),
+                error = painterResource(R.drawable.default_profile_picture),
                 contentScale = ContentScale.Crop,
-                contentDescription = stringResource(R.string.logo_do_app),
+                contentDescription = null,
             )
             Text(
-                text = stringResource(id = R.string.criar_nova_conta),
-                style = MaterialTheme.typography.h6,
-                color = MaterialTheme.colors.primary
+                text = stringResource(R.string.adicionar_foto),
+                style = MaterialTheme.typography.subtitle1
             )
         }
         Column(
@@ -122,6 +136,15 @@ fun FormularioLoginTela(
                 onClick = onSalva
             ) {
                 Text(text = stringResource(R.string.criar))
+            }
+
+            if (state.mostrarCaixaDialogoImagem) {
+                CaixaDialogoImagem(
+                    state.fotoPerfil,
+                    onFotoPerfilMudou = state.onFotoPerfilMudou,
+                    onClickDispensar = { state.onMostrarCaixaDialogoImagem(false) },
+                    onClickSalvar = { onCarregaImagem(it) }
+                )
             }
         }
     }

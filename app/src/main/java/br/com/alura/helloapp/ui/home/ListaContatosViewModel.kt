@@ -7,6 +7,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.alura.helloapp.database.ContatoDao
+import br.com.alura.helloapp.database.UsuarioDao
 import br.com.alura.helloapp.preferences.PreferencesKey
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,6 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ListaContatosViewModel @Inject constructor(
     private val contatoDao: ContatoDao,
+    private val usuarioDao: UsuarioDao,
     private val dataStore: DataStore<Preferences>
 ) : ViewModel() {
 
@@ -33,9 +35,14 @@ class ListaContatosViewModel @Inject constructor(
     private fun buscaContatos() {
         viewModelScope.launch {
             dataStore.data.first()[PreferencesKey.USUARIO_ATUAL]?.let {
-                _uiState.value =_uiState.value.copy(
+                _uiState.value = _uiState.value.copy(
                     usuarioAtual = it
                 )
+                usuarioDao.buscaPorId(it).first().let { usuario ->
+                    _uiState.value = _uiState.value.copy(
+                        urlPerfilUsuarioAtual = usuario?.fotoPerfil
+                    )
+                }
             }
         }
 

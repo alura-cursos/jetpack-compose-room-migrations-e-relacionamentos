@@ -34,6 +34,7 @@ fun ListaContatosTela(
 ) {
     Scaffold(topBar = {
         AppBarListaContatos(
+            state.urlPerfilUsuarioAtual,
             onClickListaUsuarios = onClickListaUsuarios,
             onClickBuscaContatos = onClickBuscaContatos
         )
@@ -59,7 +60,11 @@ fun ListaContatosTela(
 }
 
 @Composable
-fun AppBarListaContatos(onClickListaUsuarios: () -> Unit, onClickBuscaContatos: () -> Unit) {
+fun AppBarListaContatos(
+    urlPerfilUsuarioAtual: String?,
+    onClickListaUsuarios: () -> Unit,
+    onClickBuscaContatos: () -> Unit
+) {
     TopAppBar(
         title = { Text(text = stringResource(id = R.string.nome_do_app)) },
         actions = {
@@ -73,6 +78,7 @@ fun AppBarListaContatos(onClickListaUsuarios: () -> Unit, onClickBuscaContatos: 
                 Spacer(modifier = Modifier.size(8.dp))
 
                 AsyncImagePerfil(
+                    urlImagem = urlPerfilUsuarioAtual,
                     modifier = Modifier
                         .size(32.dp)
                         .clip(CircleShape)

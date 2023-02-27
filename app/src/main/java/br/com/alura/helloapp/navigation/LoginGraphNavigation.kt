@@ -60,6 +60,8 @@ fun NavGraphBuilder.loginGraph(
                     viewModel.salvaLogin()
                 }
                 onNavegaParaLogin()
+            }, onCarregaImagem = {
+                viewModel.carregaImagem(it)
             })
         }
     }

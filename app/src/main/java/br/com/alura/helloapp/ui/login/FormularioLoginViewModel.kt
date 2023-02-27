@@ -41,9 +41,25 @@ class FormularioLoginViewModel @Inject constructor(
                     _uiState.value = _uiState.value.copy(
                         senha = it
                     )
+                },
+                onFotoPerfilMudou = {
+                    _uiState.value = _uiState.value.copy(
+                        fotoPerfil = it
+                    )
+                },
+                onMostrarCaixaDialogoImagem = {
+                    _uiState.value = _uiState.value.copy(
+                        mostrarCaixaDialogoImagem = it
+                    )
                 }
             )
         }
+    }
+
+    fun carregaImagem(url: String) {
+        _uiState.value = _uiState.value.copy(
+            fotoPerfil = url, mostrarCaixaDialogoImagem = false
+        )
     }
 
     suspend fun salvaLogin() {
@@ -51,7 +67,8 @@ class FormularioLoginViewModel @Inject constructor(
             Usuario(
                 idUsuario = _uiState.value.usuario,
                 senha = _uiState.value.senha,
-                nome = _uiState.value.nome
+                nome = _uiState.value.nome,
+                fotoPerfil =  _uiState.value.fotoPerfil,
             )
         )
     }

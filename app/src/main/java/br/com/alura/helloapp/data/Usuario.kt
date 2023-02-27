@@ -10,5 +10,7 @@ data class Usuario(
     val idUsuario: String = "",
     val senha: String = "",
     @ColumnInfo(defaultValue = "")
-    val nome: String = ""
+    val nome: String = "",
+    @ColumnInfo(defaultValue = "")
+    val fotoPerfil: String = "",
 )
