@@ -48,7 +48,13 @@ class BuscaContatosViewModel @Inject constructor(
 
     private fun buscaContatosPorValor() {
         viewModelScope.launch {
-
+            _uiState.value.usuarioAtual?.let {
+                val contatosFiltrados = contatoDao.buscaTodosPorUsuarioEPorValor(
+                    it,
+                    _uiState.value.valorBusca
+                ).first()
+                atualizaListaContatos(contatosFiltrados)
+            }
         }
     }
 
