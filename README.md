@@ -1,3 +1,5 @@
+![Thumb JetpackCompose Room Migrations e relacionamentos](https://user-images.githubusercontent.com/35709152/224777424-915a42cf-2723-4a11-954e-58f8117fb14a.png)
+
 # HelloApp
 
 HelloApp é um aplicativo que permite salvar informações de contatos (como número de telefone, data de aniversário e foto de perfil) em diferentes contas de usuário.
